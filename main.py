@@ -70,7 +70,7 @@ def main():
     username = os.getenv("360_USERNAME")
     password = os.getenv("360_PASSWORD")
 
-    geckodriver_path = "C:/geckodriver.exe"
+    geckodriver_path = "./geckodriver.exe"
     if not os.path.exists(geckodriver_path):
         print("Geckodriver not found at path: " + geckodriver_path)
         print("Please download the latest geckodriver from https://github.com/mozilla/geckodriver/releases")

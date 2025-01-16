@@ -11,6 +11,8 @@ python -m pip install -r requirements.txt
 
 Pensez à renommer `.example.env` en `.env` et à modifier vos identifiants à l'intérieur
 
+Installer geckodriver [ici](https://github.com/mozilla/geckodriver/releases) et mettez le dans le dossier du projet
+
 # Usage
 ```sh
 python main.py
