@@ -92,13 +92,11 @@ def main():
     while not driver.current_url.startswith(LOGIN_PAGE):
         time.sleep(1)
 
-    print("Login page reached")
     driver.find_element(By.ID, "username").send_keys(username)
     driver.find_element(By.ID, "password").send_keys(password)
     driver.find_element(By.NAME, "submitBtn").click()
 
-    time.sleep(5)
-
+    time.sleep(2)
     # If 500 error
     while "Runtime Error" in driver.title:
         driver.refresh()
@@ -130,9 +128,6 @@ def main():
 
     # Filter out None values from days list
     days = [day for day in days if day is not None]
-
-    # Sort days by date
-    days.sort(key=lambda x: x.date)
 
     with open("output/days.json", "w", encoding="UTF-8") as f:
         f.write(
