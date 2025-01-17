@@ -54,16 +54,14 @@ def get_day_by_index(driver: Firefox, index: int) -> str:
 
 def get_cours_salle(cours: WebElement) -> str:
     try:
-        salle = cours.find_element(By.CSS_SELECTOR, "td.TCSalle")
-        salle_text = salle.text.split(":")[1]
-        if salle_text == "Aucune":
-            return "Aucune"
-        else:
-            num_salle = salle_text.split("-")[0].strip()
-            return num_salle
+        salle_element = cours.find_element(By.CSS_SELECTOR, "td.TCSalle")
+        salle = salle_element.text.strip()
+        if not salle:
+            print(f"Salle element found but text is empty: {salle_element}")
+        return salle
     except Exception as e:
         print(f"An error occurred while locating the salle element: {e}")
-    return ""
+        return ""
 
 def get_cours_info(cours: WebElement) -> tuple:
     try:
@@ -81,12 +79,15 @@ def get_cours_info(cours: WebElement) -> tuple:
 
 def get_cours_start_and_end_time(cours: WebElement) -> tuple:
     try:
-        time_element = cours.find_element(By.CSS_SELECTOR, "td.TChdeb")
+        time_element = cours.find_element(By.CSS_SELECTOR, "td.TChdeb")        
         times = time_element.text.split(" - ")
         start_hour, start_minute = times[0].strip().split(":")
         end_hour, end_minute = times[1].strip().split(":")
         return EDTTime(int(start_hour), int(start_minute)), EDTTime(int(end_hour), int(end_minute))
     except Exception as e:
+        if type(e) == ValueError and "not enough values to unpack" in str(e):
+            print(time_element.text)
+            return None, None
         print(f"An error occurred while locating the time element: {e}")
         return None, None
 

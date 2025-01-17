@@ -1,5 +1,4 @@
-flask
-flask-socketio
 selenium
 ics
-dotenv
+python-dotenv
+pickle
